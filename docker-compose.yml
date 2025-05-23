@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16.8
+    # user: root # Normalerweise nicht nötig, das Postgres-Image verwaltet Berechtigungen selbst
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo17@2023
+      - POSTGRES_DB=odoo
+    restart: always
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data # Persistente Daten für PostgreSQL
+      - ./initial_db_data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    healthcheck: # Stellt sicher, dass Odoo erst startet, wenn die DB bereit ist
+      test: ["CMD-SHELL", "pg_isready -U odoo -d odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  odoo17:
+    build: .
+    user: root # Behalten Sie dies bei, falls Ihr entrypoint.sh Root-Rechte benötigt (z.B. für chown)
+    depends_on:
+      db:
+        condition: service_healthy # Wartet, bis der db-Service "healthy" ist
+    ports:
+      - "10017:8069"
+      - "20017:8072" # live chat
+    tty: true
+    command: -- # Übergibt Argumente an Odoo; Ihr entrypoint.sh muss dies korrekt verarbeiten
+    environment:
+      - HOST=db
+      - USER=odoo # Odoo-App-Benutzer für die DB-Verbindung
+      - PASSWORD=odoo17@2023
+      # Es ist oft eine gute Praxis, die PGDATABASE explizit zu setzen, um Klarheit zu schaffen
+      - PGDATABASE=odoo # Muss mit POSTGRES_DB im db-Service und dem Namen der DB im Dump übereinstimmen
+    volumes:
+      #- /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
+      - ./entrypoint.sh:/entrypoint.sh
+      - ./addons:/mnt/extra-addons
+      - ./etc:/etc/odoo
+    restart: always
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com # Ändern Sie dies nach Bedarf
+      - PGADMIN_DEFAULT_PASSWORD=admin          # Ändern Sie dies nach Bedarf (und wählen Sie ein sicheres Passwort!)
+    ports:
+      - "5050:80" # pgAdmin Webinterface ist dann unter http://localhost:5050 erreichbar
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin # Persistenter Speicher für pgAdmin-Daten (Server-Konfigurationen etc.)
+    depends_on:
+      - db # Stellt sicher, dass pgAdmin nach der Datenbank startet
+    restart: always

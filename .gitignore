@@ -1,0 +1,10 @@
+.idea/
+postgresql/
+pgadmin_data/
+initial_db_data/
+etc/odoo-server.log
+etc/addons/
+etc/sessions/
+etc/filestore/
+enterprise-17.0/
+addons/
