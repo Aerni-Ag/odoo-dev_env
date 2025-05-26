@@ -6,5 +6,6 @@ etc/odoo-server.log
 etc/addons/
 etc/sessions/
 etc/filestore/
-enterprise-17.0/
+enterprise-17.0/*
+!enterprise-17.0/.gitkeep
 addons/
