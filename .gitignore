@@ -1,11 +1,13 @@
 .idea/
 postgresql/
 pgadmin_data/
-initial_db_data/
+db_data/*
+!db_data/.gitkeep
 etc/odoo-server.log
 etc/addons/
 etc/sessions/
 etc/filestore/
 enterprise-17.0/*
 !enterprise-17.0/.gitkeep
+
 addons/

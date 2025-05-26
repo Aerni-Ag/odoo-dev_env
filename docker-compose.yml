@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - ./postgresql:/var/lib/postgresql/data # Persistente Daten für PostgreSQL
-      - ./initial_db_data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./db_data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     healthcheck: # Stellt sicher, dass Odoo erst startet, wenn die DB bereit ist
       test: ["CMD-SHELL", "pg_isready -U odoo -d odoo"]
       interval: 10s

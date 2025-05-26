@@ -4,11 +4,19 @@
 
 Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) 
 
-Copy dump.sql to initial_data/
+run
+
+``` bash
+docker-compose build
+```
+
+to create folder struktur
+
+Copy dump.sql to db_data/ 
 
 Copy everything from in the `filestore` folder to etc/odoo/
 
-Clone custom Addon Repository into etc/addons
+Clone custom Addon Repositories into etc/addons
 
 run
 
