@@ -4,19 +4,19 @@
 
 Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) 
 
-run
+run to create folder struktur
 
 ``` bash
 docker-compose build
 ```
 
-to create folder struktur
+Copy dump.sql from your dumped datebase to `db_data/` 
 
-Copy dump.sql to db_data/ 
+Copy everything from your dumped `filestore` to `etc/filestore/odoo/`
 
-Copy everything from in the `filestore` folder to etc/odoo/
+Clone/Copy https://github.com/odoo/enterprise/tree/17.0 into `enterprise-17.0`
 
-Clone custom Addon Repositories into etc/addons
+Clone custom Addon Repositories into `etc/addons`
 
 run
 
