@@ -16,7 +16,7 @@ Copy everything from your dumped `filestore` to `etc/filestore/odoo/`
 
 Clone/Copy https://github.com/odoo/enterprise/tree/17.0 into `enterprise-17.0`
 
-Clone custom Addon Repositories into `etc/addons`
+Clone custom Addon Repositories into `addons/`
 
 run
 
