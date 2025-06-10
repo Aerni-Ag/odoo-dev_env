@@ -3,11 +3,12 @@ postgresql/
 pgadmin_data/
 db_data/*
 !db_data/.gitkeep
+addons/*
+!addons/.gitkeep
+enterprise-17.0/*
+!enterprise-17.0/.gitkeep
 etc/odoo-server.log
 etc/addons/
 etc/sessions/
 etc/filestore/
-enterprise-17.0/*
-!enterprise-17.0/.gitkeep
-
-addons/
+etc/odoo-server.log*
