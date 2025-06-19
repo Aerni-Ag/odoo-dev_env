@@ -26,7 +26,7 @@ services:
       - "10017:8069"
       - "20017:8072" # live chat
     tty: true
-    command: -- # Übergibt Argumente an Odoo; Ihr entrypoint.sh muss dies korrekt verarbeiten
+    command: --config /etc/odoo/odoo.conf
     environment:
       - HOST=db
       - USER=odoo # Odoo-App-Benutzer für die DB-Verbindung
