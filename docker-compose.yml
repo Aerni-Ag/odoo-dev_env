@@ -1,16 +1,15 @@
 services:
   db:
     image: postgres:16.8
-    # user: root # Normalerweise nicht nötig, das Postgres-Image verwaltet Berechtigungen selbst
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo17@2023
       - POSTGRES_DB=odoo
     restart: always
     volumes:
-      - ./postgresql:/var/lib/postgresql/data # Persistente Daten für PostgreSQL
+      - ./postgresql:/var/lib/postgresql/data
       - ./db_data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
-    healthcheck: # Stellt sicher, dass Odoo erst startet, wenn die DB bereit ist
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U odoo -d odoo"]
       interval: 10s
       timeout: 5s
@@ -48,7 +47,8 @@ services:
     ports:
       - "5050:80" # pgAdmin Webinterface ist dann unter http://localhost:5050 erreichbar
     volumes:
-      - ./pgadmin_data:/var/lib/pgadmin # Persistenter Speicher für pgAdmin-Daten (Server-Konfigurationen etc.)
+      - ./pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin_servers/servers.json:/pgadmin4/servers.json
     depends_on:
       - db # Stellt sicher, dass pgAdmin nach der Datenbank startet
     restart: always
