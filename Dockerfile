@@ -1,5 +1,5 @@
 # Dockerfile
-ARG ODOO_VERSION=17.0
+ARG ODOO_VERSION=17.0-20250725
 FROM odoo:${ODOO_VERSION}
 
 # Verzeichnis für Enterprise-Addons im Image
